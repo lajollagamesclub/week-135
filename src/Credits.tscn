@@ -9,13 +9,16 @@
 
 [node name="CreditsLabel" type="Label" parent="UI"]
 anchor_right = 1.0
+margin_left = 120.0
+margin_right = -127.0
 margin_bottom = 812.0
 theme = ExtResource( 2 )
-text = "Cameron Reikes ( creikey ) - project lead, programming, shaders
+text = "Cameron Reikes ( creikey ) - project lead, programming, shaders, music, sfx
 
 Zhiyi Lin ( Stvin_Artist ) - pixel art"
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

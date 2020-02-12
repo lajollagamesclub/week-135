@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 47.1885, 159.372 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1910.79, 76.1891 )
+
+[node name="Game" type="Node2D"]
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 994.391, 315.811 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 1 )
+
+[node name="PlaceholderSprite" type="Sprite" parent="Player"]
+position = Vector2( -0.331724, 2.32198 )
+scale = Vector2( 1.54939, 4.94942 )
+texture = ExtResource( 2 )
+
+[node name="TestingPlatform" type="StaticBody2D" parent="."]
+position = Vector2( 1000.29, 916.19 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestingPlatform"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="TestingPlatform"]
+position = Vector2( -113.843, 3.38554e-05 )
+scale = Vector2( 63.2581, 1.94869 )
+texture = ExtResource( 2 )
