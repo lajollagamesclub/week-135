@@ -114,6 +114,7 @@ __meta__ = {
 margin_top = 181.0
 margin_bottom = 358.0
 text = "Credits"
+target_scene_file = "res://Credits.tscn"
 
 [node name="QuitButton" type="Button" parent="UI/Buttons"]
 margin_top = 362.0
