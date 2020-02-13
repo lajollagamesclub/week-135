@@ -1,30 +1,80 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://default_theme.tres" type="Theme" id=3]
+[ext_resource path="res://player.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 47.1885, 159.372 )
+extents = Vector2( 20.8873, 83.9036 )
+
+[sub_resource type="SegmentShape2D" id=5]
+b = Vector2( 0, 1080 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1910.79, 76.1891 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "hide_textbox"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextBox:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.189465, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 856 ), Vector2( 0, 1080 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "show_textbox"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextBox:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.233258, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1080 ), Vector2( 0, 856 ) ]
+}
 
 [node name="Game" type="Node2D"]
 
 [node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 994.391, 315.811 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource( 1 )
 
-[node name="PlaceholderSprite" type="Sprite" parent="Player"]
-position = Vector2( -0.331724, 2.32198 )
-scale = Vector2( 1.54939, 4.94942 )
-texture = ExtResource( 2 )
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 3840
+limit_bottom = 1080
+smoothing_enabled = true
+
+[node name="Sprite" type="Sprite" parent="Player"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+
+[node name="LeftBound" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBound"]
+shape = SubResource( 5 )
+
+[node name="RightBound" type="StaticBody2D" parent="."]
+position = Vector2( 3840, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBound"]
+shape = SubResource( 5 )
 
 [node name="TestingPlatform" type="StaticBody2D" parent="."]
 position = Vector2( 1000.29, 916.19 )
@@ -39,3 +89,39 @@ shape = SubResource( 2 )
 position = Vector2( -113.843, 3.38554e-05 )
 scale = Vector2( 63.2581, 1.94869 )
 texture = ExtResource( 2 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TextBox" type="PanelContainer" parent="UI"]
+self_modulate = Color( 1, 1, 1, 0.780392 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 223.998
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/TextBox"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 1912.0
+margin_bottom = 215.998
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+
+[node name="Text" type="Label" parent="UI/TextBox/MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 1854.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Lorum delore ipsum"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+anims/hide_textbox = SubResource( 3 )
+anims/show_textbox = SubResource( 4 )
