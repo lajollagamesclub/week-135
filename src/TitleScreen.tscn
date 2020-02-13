@@ -82,7 +82,7 @@ __meta__ = {
 margin_left = 0.857422
 margin_top = -1.71475
 margin_right = 1920.86
-margin_bottom = 1078.29
+margin_bottom = 538.285
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 4 )
@@ -99,9 +99,9 @@ anims/intro = SubResource( 5 )
 
 [node name="Buttons" type="VBoxContainer" parent="UI"]
 modulate = Color( 1, 1, 1, 0.498039 )
-margin_top = 1080.0
+margin_top = 540.0
 margin_right = 1920.0
-margin_bottom = 1620.0
+margin_bottom = 1080.0
 theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://TextBox.gd" type="Script" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://player.png" type="Texture" id=4]
 [ext_resource path="res://ship.png" type="Texture" id=5]
 [ext_resource path="res://FadeIn.gd" type="Script" id=6]
-[ext_resource path="res://decorations/SuitRack.tscn" type="PackedScene" id=7]
+[ext_resource path="res://decorations-and-gibs.png" type="Texture" id=7]
 [ext_resource path="res://decorations/FullGrowBed.tscn" type="PackedScene" id=8]
 [ext_resource path="res://decorations/Growbed.tscn" type="PackedScene" id=9]
 [ext_resource path="res://decorations/LargeConsole.tscn" type="PackedScene" id=10]
@@ -21,15 +21,40 @@
 [ext_resource path="res://ship-fg.png" type="Texture" id=19]
 [ext_resource path="res://EventAnimationPlayer.gd" type="Script" id=20]
 [ext_resource path="res://thruster.png" type="Texture" id=21]
-
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 72.2982, 74.0506 )
+[ext_resource path="res://broken-ship.png" type="Texture" id=22]
+[ext_resource path="res://decorations/SuitRack.tscn" type="PackedScene" id=23]
+[ext_resource path="res://CockPit.gd" type="Script" id=24]
+[ext_resource path="res://CryoPod.gd" type="Script" id=25]
+[ext_resource path="res://SlowStars.gd" type="Script" id=26]
+[ext_resource path="res://Ladder.gd" type="Script" id=27]
+[ext_resource path="res://Ship.gd" type="Script" id=28]
+[ext_resource path="res://CountdownTimer.gd" type="Script" id=29]
+[ext_resource path="res://Game.gd" type="Script" id=30]
+[ext_resource path="res://saw.png" type="Texture" id=31]
+[ext_resource path="res://MedicalSaw.gd" type="Script" id=32]
+[ext_resource path="res://saw-animation/Sprite-0009.png" type="Texture" id=33]
+[ext_resource path="res://saw-animation/Sprite-0008.png" type="Texture" id=34]
+[ext_resource path="res://saw-animation/Sprite-0006.png" type="Texture" id=35]
+[ext_resource path="res://saw-animation/Sprite-0007.png" type="Texture" id=36]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 36.3624, 90.9024 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 72.2982, 74.0506 )
+
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 15.9749, 33.994 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "hide_textbox"
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 35 ), ExtResource( 36 ), ExtResource( 34 ), ExtResource( 33 ) ],
+"loop": true,
+"name": "saw",
+"speed": 7.0
+} ]
+
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextBox:rect_position")
 tracks/0/interp = 1
@@ -43,8 +68,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 856 ), Vector2( 0, 1080 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "show_textbox"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("TextBox:rect_position")
 tracks/0/interp = 1
@@ -58,11 +82,81 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 1080 ), Vector2( 0, 856 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 36.8376, 39.5212 )
 
-[sub_resource type="Animation" id=6]
-resource_name = "fade_in"
+[sub_resource type="Animation" id=8]
+resource_name = "cryo_sleep"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("FadeIn:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0.658824, 1, 0.647059, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("FadeIn")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "break_ship"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/TextBox:text_queue")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ [  ], [ "UNKNOWN ENTITY DETECTED", "SYSTEM STATUS: NONFUNCTIONAL", "COLLISION WITH ALDERANN IN 60.00001 SECONDS" ] ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "died"
+tracks/0/type = "value"
+tracks/0/path = NodePath("FadeIn:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.658824, 1, 0.647059, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("EventAnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "reset"
+} ]
+}
+
+[sub_resource type="Animation" id=10]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("UI/TextBox:text_queue")
@@ -71,7 +165,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ [  ], [ "SHIP POWERED ON", "OPERATION STATUS: DORMANT", "SYSTEMS REQUIRE ACTIVATION" ] ]
@@ -83,18 +177,54 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 3 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 3.24901, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "ready_for_launch"
+[sub_resource type="Animation" id=11]
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 23.7338, 10 )
 
 [node name="Game" type="Node2D"]
+script = ExtResource( 30 )
+
+[node name="FastStars" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2( 4008.21, 437.943 )
+amount = 130
+lifetime = 6.43
+preprocess = 20.0
+emission_shape = 2
+emission_rect_extents = Vector2( 1, 700 )
+direction = Vector2( -1, 0 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 1000.0
+initial_velocity_random = 0.6
+scale_amount = 23.65
+scale_amount_random = 1.0
+
+[node name="SlowStars" type="CPUParticles2D" parent="."]
+position = Vector2( 4008.21, 437.943 )
+amount = 130
+lifetime = 100.0
+preprocess = 300.0
+emission_shape = 2
+emission_rect_extents = Vector2( 1, 700 )
+direction = Vector2( -1, 0 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 0.6
+scale_amount = 23.65
+scale_amount_random = 1.0
+script = ExtResource( 26 )
 
 [node name="Ship" type="StaticBody2D" parent="."]
+script = ExtResource( 28 )
 
 [node name="Thruster" type="Sprite" parent="Ship"]
 position = Vector2( 320.792, 259.423 )
@@ -111,6 +241,12 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 5 )
 centered = false
 
+[node name="BrokenSprite" type="Sprite" parent="Ship"]
+visible = false
+scale = Vector2( 4, 4 )
+texture = ExtResource( 22 )
+centered = false
+
 [node name="TopHalf" type="CollisionPolygon2D" parent="Ship"]
 polygon = PoolVector2Array( 259.247, 449.195, 260.413, 211.26, 1775.15, 213.225, 1777.72, 362.408, 1812.75, 367.485, 1913.19, 369.267, 1914.04, 335.829, 3149.5, 335.924, 3148.76, 446.188, 3180.37, 338.129, 3145.02, 190.626, 838.503, 40.3099, 138.698, 155.552, 157.07, 439.483 )
 
@@ -123,9 +259,31 @@ polygon = PoolVector2Array( 2608.35, 447.484, 2607.45, 522.392, 3145.34, 523.294
 [node name="Buttom" type="CollisionPolygon2D" parent="Ship"]
 polygon = PoolVector2Array( 257.262, 525.133, 255.504, 822.249, 1769.21, 825.765, 1773.99, 666.676, 1921.71, 665.168, 1923.92, 720.28, 3175.68, 715.006, 3170.4, 518.101, 3149.3, 519.859, 3149.3, 491.73, 3193.26, 482.939, 3230.18, 802.91, 1728.78, 975.202, 113.1, 924.217, 178.149, 504.036 )
 
+[node name="CryoPod" type="Area2D" parent="."]
+position = Vector2( 2862.43, 337.643 )
+script = ExtResource( 25 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ClosedSprite" type="Sprite" parent="CryoPod"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+region_enabled = true
+region_rect = Rect2( 206, 2, 21, 46 )
+
+[node name="OpenSprite" type="Sprite" parent="CryoPod"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+region_enabled = true
+region_rect = Rect2( 230, 2, 21, 46 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CryoPod"]
+shape = SubResource( 1 )
+
 [node name="Decorations" type="Node2D" parent="."]
 
-[node name="SuitRack" parent="Decorations" instance=ExtResource( 7 )]
+[node name="SuitRack" parent="Decorations" instance=ExtResource( 23 )]
 position = Vector2( 337.666, 205.93 )
 
 [node name="Growbed" parent="Decorations" instance=ExtResource( 9 )]
@@ -135,9 +293,9 @@ position = Vector2( 659.267, 556.014 )
 position = Vector2( 783.027, 556.014 )
 
 [node name="LargeConsole" parent="Decorations" instance=ExtResource( 10 )]
-position = Vector2( 1676.32, 227.573 )
+position = Vector2( 1670.48, 210.041 )
 
-[node name="SuitRack2" parent="Decorations" instance=ExtResource( 7 )]
+[node name="SuitRack2" parent="Decorations" instance=ExtResource( 23 )]
 position = Vector2( 540.267, 213.293 )
 
 [node name="Growbed3" parent="Decorations" instance=ExtResource( 9 )]
@@ -164,6 +322,12 @@ position = Vector2( 1422.45, 400.437 )
 [node name="SmallConsole" parent="Decorations" instance=ExtResource( 13 )]
 position = Vector2( 1340.78, 217.886 )
 
+[node name="SmallConsole2" parent="Decorations" instance=ExtResource( 13 )]
+position = Vector2( 2061.55, 328.923 )
+
+[node name="SmallConsole3" parent="Decorations" instance=ExtResource( 13 )]
+position = Vector2( 2256.35, 330.871 )
+
 [node name="Capsule" parent="Decorations" instance=ExtResource( 17 )]
 position = Vector2( 1219.36, 529.04 )
 
@@ -184,6 +348,7 @@ position = Vector2( 1220.95, 619.48 )
 
 [node name="CockPit" type="Area2D" parent="."]
 position = Vector2( 3056.43, 592.195 )
+script = ExtResource( 24 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -193,7 +358,7 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 18 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CockPit"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="Player" type="KinematicBody2D" parent="." groups=[
 "player",
@@ -218,7 +383,21 @@ texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2( -0.0471191, 48.0637 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
+
+[node name="FallTimer" type="Timer" parent="Player"]
+
+[node name="SawingSprite" type="AnimatedSprite" parent="Player"]
+visible = false
+scale = Vector2( 4, 4 )
+frames = SubResource( 4 )
+animation = "saw"
+frame = 3
+playing = true
+flip_h = true
+
+[node name="NewLimbTimer" type="Timer" parent="Player"]
+wait_time = 1.5
 
 [node name="ShipFG" type="Sprite" parent="."]
 scale = Vector2( 4, 4 )
@@ -232,23 +411,24 @@ self_modulate = Color( 1, 1, 1, 0.780392 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 223.998
+margin_bottom = 223.999
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+text_queue = [ "UNKNOWN ENTITY DETECTED", "SYSTEM STATUS: NONFUNCTIONAL", "COLLISION WITH ALDERANN IN 60.00001 SECONDS" ]
 
 [node name="TextBoxAnimationPlayer" type="AnimationPlayer" parent="UI/TextBox"]
 root_node = NodePath("../..")
-anims/hide_textbox = SubResource( 3 )
-anims/show_textbox = SubResource( 4 )
+anims/hide_textbox = SubResource( 5 )
+anims/show_textbox = SubResource( 6 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/TextBox"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 1912.0
-margin_bottom = 215.998
+margin_bottom = 215.999
 custom_constants/margin_right = 50
 custom_constants/margin_top = 50
 custom_constants/margin_left = 50
@@ -263,22 +443,58 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Lorum delore ipsum"
 
+[node name="CountdownTimer" type="Label" parent="UI"]
+visible = false
+anchor_right = 1.0
+margin_top = 50.0
+margin_bottom = 146.0
+theme = ExtResource( 3 )
+text = "0.00"
+align = 1
+script = ExtResource( 29 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Ladder" type="Area2D" parent="."]
 position = Vector2( 2570.01, 485.64 )
+script = ExtResource( 27 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder"]
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 
 [node name="EventAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "fade_in"
-anims/fade_in = SubResource( 6 )
-anims/ready_for_launch = SubResource( 8 )
+anims/cryo_sleep = SubResource( 8 )
+anims/died = SubResource( 9 )
+anims/fade_in = SubResource( 10 )
+anims/ready_for_launch = SubResource( 11 )
 script = ExtResource( 20 )
 
 [node name="FadeIn" type="CanvasModulate" parent="."]
 visible = false
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.658824, 1, 0.647059, 1 )
 script = ExtResource( 6 )
+
+[node name="MedicalSaw" type="Area2D" parent="."]
+position = Vector2( 2650.41, 538.502 )
+script = ExtResource( 32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="MedicalSaw"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 31 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MedicalSaw"]
+shape = SubResource( 12 )
+[connection signal="body_entered" from="CryoPod" to="CryoPod" method="_on_CryoPod_body_entered"]
+[connection signal="body_entered" from="CockPit" to="CockPit" method="_on_CockPit_body_entered"]
+[connection signal="timeout" from="Player/FallTimer" to="Player" method="_on_FallTimer_timeout"]
+[connection signal="timeout" from="Player/NewLimbTimer" to="Player" method="_on_NewLimbTimer_timeout"]
+[connection signal="body_entered" from="Ladder" to="Ladder" method="_on_Ladder_body_entered"]
+[connection signal="input_event" from="MedicalSaw" to="MedicalSaw" method="_on_MedicalSaw_input_event"]

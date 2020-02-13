@@ -9,6 +9,10 @@ func _ready():
 var destroyed: bool = false setget set_destroyed
 var activated: bool = false setget set_activated
 
+func _process(delta):
+	if GameState.destroyed == true:
+		self.destroyed = true
+
 func set_destroyed(new_destroyed):
 	destroyed = new_destroyed
 	if has_node("Destroyed"):

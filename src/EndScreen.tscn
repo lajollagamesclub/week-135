@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://TravelButton.tscn" type="PackedScene" id=2]
+
+[node name="EndScreen" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="WinLabel" type="Label" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+text = "Collision successfully averted
+
+Congratulations, pilot"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TravelButton" parent="CanvasLayer" instance=ExtResource( 2 )]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -199.0
+margin_right = 0.0
+margin_bottom = 0.0
+theme = ExtResource( 1 )
+text = "To Main Screen"
+target_scene_file = "res://TitleScreen.tscn"

@@ -2,7 +2,13 @@ extends AnimationPlayer
 
 var notified_player: bool = false
 
+func reset():
+	get_tree().reload_current_scene()
+
 func _process(delta):
+	if GameState.time_left <= 0.0:
+		play("died")
+	
 	for n in get_tree().get_nodes_in_group("activatable"):
 		if not n.activated:
 			return
@@ -15,3 +21,4 @@ func _process(delta):
 		"ALL SYSTEMS OPERATIONAL",
 		"OPERATION STATUS: READY FOR LAUNCH"
 	]
+	GameState.waiting_for = "cockpit"
