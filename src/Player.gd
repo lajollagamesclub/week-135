@@ -1,36 +1,26 @@
 extends KinematicBody2D
 
 enum STATES {
-	platformer_b4_infected,
-	platformer,
-	throwing
+	top_down
 }
 
-var accel: Vector2 = Vector2(0.0, 4000)
+#var accel: Vector2 = Vector2(0.0, 0.0)
 var vel: Vector2 = Vector2()
-var current_state: int = STATES.platformer_b4_infected
+var current_state: int = STATES.top_down
 
 func _physics_process(delta):
 	match current_state:
-		STATES.platformer_b4_infected, STATES.platformer:
+		STATES.top_down:
 			var horizontal: float = float(Input.is_action_pressed("g_right")) - float(Input.is_action_pressed("g_left"))
+			var vertical: float = float(Input.is_action_pressed("g_down")) - float(Input.is_action_pressed("g_up"))
 			
-			if horizontal < 0:
+			if horizontal < 0.0:
 				$Sprite.flip_h = true
-			elif horizontal > 0:
+			elif horizontal > 0.0:
 				$Sprite.flip_h = false
 			
-			# move slower after infection
-			var move_velocity: float = 0.0
-			if current_state == STATES.platformer_b4_infected:
-				move_velocity = 800.0
-			else:
-				move_velocity = 300.0
-	
-			vel += accel*delta
-			vel.x = horizontal*move_velocity
+			var move_speed: float = 400.0
 			
-			if Input.is_action_just_pressed("g_jump"):
-				vel.y = -900.0
+			vel = Vector2(horizontal, vertical)*move_speed
 			
-			vel = move_and_slide(vel, Vector2(0.0, 1.0))
+			vel = move_and_slide(vel)
