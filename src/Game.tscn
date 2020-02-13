@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://TextBox.gd" type="Script" id=2]
@@ -36,6 +36,8 @@
 [ext_resource path="res://saw-animation/Sprite-0008.png" type="Texture" id=34]
 [ext_resource path="res://saw-animation/Sprite-0006.png" type="Texture" id=35]
 [ext_resource path="res://saw-animation/Sprite-0007.png" type="Texture" id=36]
+[ext_resource path="res://space_ambiance_not_creepy2.ogg" type="AudioStream" id=37]
+[ext_resource path="res://AudioStreamPlayer.gd" type="Script" id=38]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 36.3624, 90.9024 )
@@ -392,7 +394,7 @@ visible = false
 scale = Vector2( 4, 4 )
 frames = SubResource( 4 )
 animation = "saw"
-frame = 3
+frame = 2
 playing = true
 flip_h = true
 
@@ -492,6 +494,11 @@ texture = ExtResource( 31 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MedicalSaw"]
 shape = SubResource( 12 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 37 )
+autoplay = true
+script = ExtResource( 38 )
 [connection signal="body_entered" from="CryoPod" to="CryoPod" method="_on_CryoPod_body_entered"]
 [connection signal="body_entered" from="CockPit" to="CockPit" method="_on_CockPit_body_entered"]
 [connection signal="timeout" from="Player/FallTimer" to="Player" method="_on_FallTimer_timeout"]

@@ -13,9 +13,11 @@ margin_left = 120.0
 margin_right = -127.0
 margin_bottom = 812.0
 theme = ExtResource( 2 )
-text = "Cameron Reikes ( creikey ) - project lead, programming, shaders, music, sfx
+text = "Cameron Reikes ( creikey ) - project lead, programming, shaders, sfx
 
-Zhiyi Lin ( Stvin_Artist ) - pixel art"
+Zhiyi Lin ( Stvin_Artist ) - pixel art
+
+Brenden ( DJRoboquis ) - ambience"
 align = 1
 valign = 1
 autowrap = true
