@@ -3,4 +3,4 @@
 [ext_resource path="res://decorations/DecorationSpriteBase.tscn" type="PackedScene" id=1]
 
 [node name="Growbed" instance=ExtResource( 1 )]
-activatable = true
+activatable = false

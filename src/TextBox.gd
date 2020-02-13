@@ -22,9 +22,14 @@ func _input(event):
 			return
 		else:
 			if text_queue.empty() and shown:
-				$TextBoxAnimationPlayer.play("hide_textbox")
-				shown = false
+				hide()
 			next_text()
+
+func hide():
+	if not shown:
+		return
+	$TextBoxAnimationPlayer.play("hide_textbox")
+	shown = false
 
 func next_text():
 	text_queue.pop_front()

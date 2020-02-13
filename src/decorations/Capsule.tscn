@@ -4,6 +4,7 @@
 
 [node name="Capsule" instance=ExtResource( 1 )]
 region_rect = Rect2( 105, 53, 40, 7 )
+activatable = false
 
 [node name="Destroyed" parent="." index="0"]
 region_rect = Rect2( 104, 119, 40, 7 )

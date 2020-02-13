@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://TextBox.gd" type="Script" id=2]
@@ -19,6 +19,8 @@
 [ext_resource path="res://decorations/Capsule.tscn" type="PackedScene" id=17]
 [ext_resource path="res://cockpit.png" type="Texture" id=18]
 [ext_resource path="res://ship-fg.png" type="Texture" id=19]
+[ext_resource path="res://EventAnimationPlayer.gd" type="Script" id=20]
+[ext_resource path="res://thruster.png" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 72.2982, 74.0506 )
@@ -87,9 +89,22 @@ tracks/1/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=8]
+resource_name = "ready_for_launch"
+
 [node name="Game" type="Node2D"]
 
 [node name="Ship" type="StaticBody2D" parent="."]
+
+[node name="Thruster" type="Sprite" parent="Ship"]
+position = Vector2( 320.792, 259.423 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 21 )
+
+[node name="Thruster2" type="Sprite" parent="Ship"]
+position = Vector2( 320.792, 689.006 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 21 )
 
 [node name="Sprite" type="Sprite" parent="Ship"]
 scale = Vector2( 4, 4 )
@@ -260,6 +275,8 @@ shape = SubResource( 5 )
 [node name="EventAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "fade_in"
 anims/fade_in = SubResource( 6 )
+anims/ready_for_launch = SubResource( 8 )
+script = ExtResource( 20 )
 
 [node name="FadeIn" type="CanvasModulate" parent="."]
 visible = false
