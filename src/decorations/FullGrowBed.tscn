@@ -4,6 +4,7 @@
 
 [node name="FullGrowBed" instance=ExtResource( 1 )]
 region_rect = Rect2( 69, 23, 14, 17 )
+activatable = false
 
 [node name="Destroyed" parent="." index="0"]
 region_rect = Rect2( 68, 89, 16, 18 )

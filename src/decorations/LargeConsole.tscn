@@ -4,6 +4,7 @@
 
 [node name="LargeConsole" instance=ExtResource( 1 )]
 region_rect = Rect2( 8, 7, 38, 34 )
+activatable = true
 
 [node name="Destroyed" parent="." index="0"]
 region_rect = Rect2( 7, 73, 38, 34 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://TextBox.gd" type="Script" id=2]
@@ -6,6 +6,22 @@
 [ext_resource path="res://player.png" type="Texture" id=4]
 [ext_resource path="res://ship.png" type="Texture" id=5]
 [ext_resource path="res://FadeIn.gd" type="Script" id=6]
+[ext_resource path="res://decorations/SuitRack.tscn" type="PackedScene" id=7]
+[ext_resource path="res://decorations/FullGrowBed.tscn" type="PackedScene" id=8]
+[ext_resource path="res://decorations/Growbed.tscn" type="PackedScene" id=9]
+[ext_resource path="res://decorations/LargeConsole.tscn" type="PackedScene" id=10]
+[ext_resource path="res://decorations/Mirror.tscn" type="PackedScene" id=11]
+[ext_resource path="res://decorations/WorkStation.tscn" type="PackedScene" id=12]
+[ext_resource path="res://decorations/SmallConsole.tscn" type="PackedScene" id=13]
+[ext_resource path="res://decorations/ContainmentCell.tscn" type="PackedScene" id=14]
+[ext_resource path="res://decorations/Projector.tscn" type="PackedScene" id=15]
+[ext_resource path="res://decorations/ServerBox.tscn" type="PackedScene" id=16]
+[ext_resource path="res://decorations/Capsule.tscn" type="PackedScene" id=17]
+[ext_resource path="res://cockpit.png" type="Texture" id=18]
+[ext_resource path="res://ship-fg.png" type="Texture" id=19]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 72.2982, 74.0506 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.9749, 33.994 )
@@ -66,7 +82,7 @@ tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 3.24901, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
@@ -89,9 +105,84 @@ polygon = PoolVector2Array( 256.371, 448.894, 253.213, 522.578, 2530.1, 522.473,
 [node name="RightMiddleWall" type="CollisionPolygon2D" parent="Ship"]
 polygon = PoolVector2Array( 2608.35, 447.484, 2607.45, 522.392, 3145.34, 523.294, 3147.15, 446.582 )
 
+[node name="Buttom" type="CollisionPolygon2D" parent="Ship"]
+polygon = PoolVector2Array( 257.262, 525.133, 255.504, 822.249, 1769.21, 825.765, 1773.99, 666.676, 1921.71, 665.168, 1923.92, 720.28, 3175.68, 715.006, 3170.4, 518.101, 3149.3, 519.859, 3149.3, 491.73, 3193.26, 482.939, 3230.18, 802.91, 1728.78, 975.202, 113.1, 924.217, 178.149, 504.036 )
+
 [node name="Decorations" type="Node2D" parent="."]
 
-[node name="Player" type="KinematicBody2D" parent="."]
+[node name="SuitRack" parent="Decorations" instance=ExtResource( 7 )]
+position = Vector2( 337.666, 205.93 )
+
+[node name="Growbed" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 659.267, 556.014 )
+
+[node name="Growbed2" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 783.027, 556.014 )
+
+[node name="LargeConsole" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 1676.32, 227.573 )
+
+[node name="SuitRack2" parent="Decorations" instance=ExtResource( 7 )]
+position = Vector2( 540.267, 213.293 )
+
+[node name="Growbed3" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 783.027, 629 )
+
+[node name="FullGrowBed" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 768.747, 400.52 )
+
+[node name="WorkStation" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( 946.454, 230.747 )
+
+[node name="Mirror" parent="Decorations" instance=ExtResource( 11 )]
+position = Vector2( 819.52, 221.227 )
+
+[node name="ContainmentCell" parent="Decorations" instance=ExtResource( 14 )]
+position = Vector2( 1100.36, 218.053 )
+
+[node name="Projector" parent="Decorations" instance=ExtResource( 15 )]
+position = Vector2( 1068.63, 400.437 )
+
+[node name="Projector2" parent="Decorations" instance=ExtResource( 15 )]
+position = Vector2( 1422.45, 400.437 )
+
+[node name="SmallConsole" parent="Decorations" instance=ExtResource( 13 )]
+position = Vector2( 1340.78, 217.886 )
+
+[node name="Capsule" parent="Decorations" instance=ExtResource( 17 )]
+position = Vector2( 1219.36, 529.04 )
+
+[node name="Capsule2" parent="Decorations" instance=ExtResource( 17 )]
+position = Vector2( 1422.45, 530.627 )
+
+[node name="Capsule3" parent="Decorations" instance=ExtResource( 17 )]
+position = Vector2( 1025.79, 530.627 )
+
+[node name="ServerBox" parent="Decorations" instance=ExtResource( 16 )]
+position = Vector2( 3051.96, 356.094 )
+
+[node name="Growbed4" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 656.094, 625.827 )
+
+[node name="FullGrowBed2" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 1220.95, 619.48 )
+
+[node name="CockPit" type="Area2D" parent="."]
+position = Vector2( 3056.43, 592.195 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="CockPit"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 18 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CockPit"]
+shape = SubResource( 7 )
+
+[node name="Player" type="KinematicBody2D" parent="." groups=[
+"player",
+]]
 position = Vector2( 430.911, 285.126 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -114,6 +205,11 @@ texture = ExtResource( 4 )
 position = Vector2( -0.0471191, 48.0637 )
 shape = SubResource( 1 )
 
+[node name="ShipFG" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 19 )
+centered = false
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="TextBox" type="PanelContainer" parent="UI"]
@@ -127,7 +223,6 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-text_queue = [ "SHIP POWERED ON", "OPERATION STATUS: DORMANT", "SYSTEMS REQUIRE ACTIVATION" ]
 
 [node name="TextBoxAnimationPlayer" type="AnimationPlayer" parent="UI/TextBox"]
 root_node = NodePath("../..")

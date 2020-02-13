@@ -4,6 +4,7 @@
 
 [node name="Mirror" instance=ExtResource( 1 )]
 region_rect = Rect2( 162, 16, 12, 26 )
+activatable = false
 
 [node name="Destroyed" parent="." index="0"]
 region_rect = Rect2( 161, 82, 12, 26 )

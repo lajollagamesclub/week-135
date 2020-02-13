@@ -1,5 +1,11 @@
 extends Sprite
 
+export var activatable: bool = true
+
+func _ready():
+	if activatable:
+		add_to_group("activatable")
+
 var destroyed: bool = false setget set_destroyed
 var activated: bool = false setget set_activated
 
