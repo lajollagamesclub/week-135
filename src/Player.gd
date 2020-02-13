@@ -4,11 +4,10 @@ enum STATES {
 	top_down
 }
 
-#var accel: Vector2 = Vector2(0.0, 0.0)
 var vel: Vector2 = Vector2()
 var current_state: int = STATES.top_down
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	match current_state:
 		STATES.top_down:
 			var horizontal: float = float(Input.is_action_pressed("g_right")) - float(Input.is_action_pressed("g_left"))

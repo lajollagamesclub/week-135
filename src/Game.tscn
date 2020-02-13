@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://TextBox.gd" type="Script" id=2]
 [ext_resource path="res://default_theme.tres" type="Theme" id=3]
 [ext_resource path="res://player.png" type="Texture" id=4]
 [ext_resource path="res://ship.png" type="Texture" id=5]
+[ext_resource path="res://FadeIn.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.9749, 33.994 )
@@ -38,6 +40,37 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 1080 ), Vector2( 0, 856 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 36.8376, 39.5212 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "fade_in"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/TextBox:text_queue")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ [  ], [ "SHIP POWERED ON", "OPERATION STATUS: DORMANT", "SYSTEMS REQUIRE ACTIVATION" ] ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FadeIn:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Game" type="Node2D"]
 
 [node name="Ship" type="StaticBody2D" parent="."]
@@ -50,12 +83,20 @@ centered = false
 [node name="TopHalf" type="CollisionPolygon2D" parent="Ship"]
 polygon = PoolVector2Array( 259.247, 449.195, 260.413, 211.26, 1775.15, 213.225, 1777.72, 362.408, 1812.75, 367.485, 1913.19, 369.267, 1914.04, 335.829, 3149.5, 335.924, 3148.76, 446.188, 3180.37, 338.129, 3145.02, 190.626, 838.503, 40.3099, 138.698, 155.552, 157.07, 439.483 )
 
-[node name="MiddleWall" type="CollisionPolygon2D" parent="Ship"]
-polygon = PoolVector2Array( 256.371, 448.894, 253.213, 522.578, 3148.47, 521.368, 3149.52, 448.736 )
+[node name="LeftMiddleWall" type="CollisionPolygon2D" parent="Ship"]
+polygon = PoolVector2Array( 256.371, 448.894, 253.213, 522.578, 2530.1, 522.473, 2530.08, 447.802 )
+
+[node name="RightMiddleWall" type="CollisionPolygon2D" parent="Ship"]
+polygon = PoolVector2Array( 2608.35, 447.484, 2607.45, 522.392, 3145.34, 523.294, 3147.15, 446.582 )
+
+[node name="Decorations" type="Node2D" parent="."]
 
 [node name="Player" type="KinematicBody2D" parent="."]
-position = Vector2( 994.391, 315.811 )
+position = Vector2( 430.911, 285.126 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -82,9 +123,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = 223.998
 theme = ExtResource( 3 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+text_queue = [ "SHIP POWERED ON", "OPERATION STATUS: DORMANT", "SYSTEMS REQUIRE ACTIVATION" ]
+
+[node name="TextBoxAnimationPlayer" type="AnimationPlayer" parent="UI/TextBox"]
+root_node = NodePath("../..")
+anims/hide_textbox = SubResource( 3 )
+anims/show_textbox = SubResource( 4 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/TextBox"]
 margin_left = 8.0
@@ -105,6 +153,20 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Lorum delore ipsum"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
-anims/hide_textbox = SubResource( 3 )
-anims/show_textbox = SubResource( 4 )
+[node name="Ladder" type="Area2D" parent="."]
+position = Vector2( 2570.01, 485.64 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder"]
+shape = SubResource( 5 )
+
+[node name="EventAnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "fade_in"
+anims/fade_in = SubResource( 6 )
+
+[node name="FadeIn" type="CanvasModulate" parent="."]
+visible = false
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 6 )

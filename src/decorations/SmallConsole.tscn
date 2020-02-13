@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://decorations/DecorationSpriteBase.tscn" type="PackedScene" id=1]
+
+[node name="SmallConsole" instance=ExtResource( 1 )]
+region_rect = Rect2( 10, 47, 28, 14 )
+
+[node name="Destroyed" parent="." index="0"]
+region_rect = Rect2( 9, 113, 28, 14 )
